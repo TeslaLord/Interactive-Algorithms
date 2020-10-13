@@ -17,37 +17,55 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light" style="font-size:20px; background:whitesmoke;">
+    <nav class="navbar navbar-light text-light bg-dark" style="font-size:20px;">
         <h2>Dijkstra Algorithm </h2>
+        <div>
+            Enter the number of nodes: <input type="number" id="nodenum" value="nodevalue"
+                style="width: 100px !important;">
+            Starting node: <input type="number" id="startingnode" value="startnode" style="width: 100px !important;">
+            ending node: <input type="number" id="endingnode" value="endnode" style="width: 100px !important;">
+        </div>
     </nav>
-    <div class="form-group">
-        <form id="frm1" action="/action_page.php">
-            <div class="text-center">
-                Enter the number of nodes: <input type="number" name="nodenum" value="nodevalue"><br><br>
-                Enter the links: <textarea type="text" name="nodeconn" value="nodeconn"></textarea>
-            </div>
-        </form>
-    </div>
-    <div class="row">
-        <div id="container" class="col-6">
-
-
-        </div>
-        <div id="container2" class="col-6" style="height: 80vmin;"> <span id="temptext"
-                style="width:100%; text-align:center; font-size:x-large;">Click on Solve to get solution</span>
-        </div>
-        <div id="network2" style="display:none;"></div>
-    </div>
     <br>
-    <div class="text-center row">
-        <div class="col-md-6"><button type="button" class="btn btn-danger" id="generate-graph">Generate Graph</button>
+    <div class="container ">
+        <div class="form-group">
+            <h5>
+                <form id="frm1" class="formfield" action="/action_page.php">
+                    <div class="text-center" style="vertical-align: middle;">
+                        Enter the links: <textarea type="text" name="nodeconn" value="nodeconn"></textarea>
+                        <h6>Separate them with space "from to cost" (Enter for next edge)</h6>
+                    </div>
+                </form>
+            </h5>
         </div>
+        <div class="row">
+            <div id="container" class="col-6 ">
 
-        <div class="col-md-6"><button type="button" class="btn btn-success" id="solve-graph">Solve Graph</button></div>
 
+            </div>
+            <div id="container2" class="col-6"> <span id="temptext"
+                    style="width:100%; text-align:center; font-size:x-large;">
+                    <p>Enter the inputs</p>
+                    <p>Click on Generate graph to view the input graph</p>
+                    <p>Click the outputs for required solutions</p>
+                </span>
+            </div>
+            <!-- <div id="network2" style="display:none;"></div> -->
+        </div>
+        <br>
+        <div class="text-center row">
+            <div class="col-md-6"><button type="button" class="btn btn-danger" id="generate-graph">Generate
+                    Graph</button>
+            </div>
+
+            <div class="col-md-2"><button type="button" class="btn btn-success" id="out-1">Output 1</button></div>
+            <div class="col-md-2"><button type="button" class="btn btn-success" id="out-2">Output 2</button></div>
+            <div class="col-md-2"><button type="button" class="btn btn-success" id="out-3">Output 3</button></div>
+
+
+        </div>
     </div>
-
-
+    <br><br>
 </body>
 
 </html>
