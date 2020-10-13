@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://kit.fontawesome.com/97f4dbfedd.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="script.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-light" style="font-size:20px; background:whitesmoke;">
+        <h2>Dijkstra Algorithm </h2>
+    </nav>
+    <div class="form-group">
+        <form id="frm1" action="/action_page.php">
+            <div class="text-center">
+                Enter the number of nodes: <input type="number" name="nodenum" value="nodevalue"><br><br>
+                Enter the links: <textarea type="text" name="nodeconn" value="nodeconn"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div id="container" class="col-md-6 col-sm-12">
+
+
+        </div>
+        <div id="container2" class="col-md-6 col-sm-12" style="height: 80vmin;"> <span id="temptext"
+                style="width:100%; text-align:center; font-size:x-large;">Click on Solve to get solution</span>
+        </div>
+        <div id="network2" style="display:none;"></div>
+    </div>
+    <br>
+    <div class="text-center row">
+        <div class="col-md-6"><button type="button" class="btn btn-danger" id="generate-graph">Generate Graph</button>
+        </div>
+
+        <div class="col-md-6"><button type="button" class="btn btn-success" id="solve-graph">Solve Graph</button></div>
+
+    </div>
+
+
+</body>
+
+</html>
