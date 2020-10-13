@@ -2,10 +2,15 @@ onload = function () {
     const container = document.getElementById('container');
     const container2 = document.getElementById('container2');
     const genNew = document.getElementById('generate-graph');
-    const solveNew = document.getElementById('solve-graph');
+    const out1 = document.getElementById('out-1');
+    const out2 = document.getElementById('out-2');
+    const out3 = document.getElementById('out-3');
 
     const options = {
         edges: {
+            arrows: {
+                to: true
+            },
             labelHighlightBold: true,
             font: {
                 size: 20
@@ -33,11 +38,14 @@ onload = function () {
 
 
 
+
     function createData() {
         //the vertices info input to vis.jb library
         var x = document.getElementById("frm1");
-        let V = x.elements[0].value;
-        let conn = x.elements[1].value;
+        let conn = x.elements[0].value;
+        let V = parseInt(document.getElementById("nodenum").value)
+        starting_node = parseInt(document.getElementById("startingnode").value)
+        ending_node = parseInt(document.getElementById("endingnode").value)
         var splitconn = conn.split("\n")
 
         let vertices = []
@@ -84,11 +92,11 @@ onload = function () {
 
 
     function solveData() {
-        let vertices = []
-        let edges = []
+        vertices = []
+        edges = []
         var x = document.getElementById("frm1");
-        let V = x.elements[0].value;
-        let conn = x.elements[1].value;
+        V = parseInt(document.getElementById("nodenum").value)
+        let conn = x.elements[0].value;
         var splitconn = conn.split("\n")
         graph = {}
         for (let i = 1; i <= V; i++) {
@@ -103,7 +111,7 @@ onload = function () {
         // let l = [1, 2, 3, 4]
         delete l[0]
         let neighbor_start = []
-        let costs = {}
+        costs = {}
         parents = {}
         processed = []
         let i = ""
@@ -114,12 +122,11 @@ onload = function () {
 
             let cost_edge = parseInt(splitvalues[2])
             if (!Number.isNaN(start)) {
-                console.log(start, end, cost_edge)
                 graph[start][end] = parseInt(cost_edge)
-                if (start == 1) {
+                if (start == starting_node) {
                     neighbor_start.push(end)
                     costs[end] = parseInt(cost_edge)
-                    parents[end] = 1
+                    parents[end] = starting_node
                 }
             }
         }
@@ -130,13 +137,13 @@ onload = function () {
         difference = Array.from(difference);
         for (var k in difference) {
 
-            if (parseInt(difference[k]) != 1) {
+            if (parseInt(difference[k]) != starting_node) {
 
                 costs[difference[k]] = Infinity
                 parents[difference[k]] = null;
             }
         }
-        console.log(costs)
+
         let node = find_lowest_cost_node(costs)
 
         while (node != null) {
@@ -147,15 +154,52 @@ onload = function () {
                 new_cost = (new_cost)
                 if ((costs[n]) > (new_cost)) {
                     costs[n] = new_cost
-                    parents[n] = node
+                    parents[n] = parseInt(node)
                 }
             }
             processed.push(node)
             node = find_lowest_cost_node(costs)
         }
+    }
+
+    function output1() {
+        solveData()
+        let temp = []
+        for (let i = 1; i < V + 1; i++) {
+            if (parents[i] == null && i != starting_node) {
+                temp.push(i)
+            }
+            edges.push({
+                from: parents[i],
+                to: i,
+                color: 'orange',
+                label: String(costs[i])
+            })
+        }
+
+        let l = [...Array(V).keys()];
+        delete l[0]
+        for (let i = 1; i < V + 1; i++) {
+            edges.push({
+                from: starting_node,
+                to: temp[i - 1],
+                color: 'orange',
+                label: String(Infinity)
+            })
+
+        }
+        const data = {
+            nodes: vertices,
+            edges: edges
+        }
+        return data;
+    }
+
+    function output2() {
+        solveData()
         for (var n in costs) {
             edges.push({
-                from: 1,
+                from: starting_node,
                 to: n,
                 color: 'orange',
                 label: String(costs[n])
@@ -166,18 +210,68 @@ onload = function () {
             edges: edges
         }
         return data;
-
-
     }
 
-
+    function output3() {
+        solveData()
+        let end = ending_node
+        let vertices = []
+        let edges = []
+        if (parents[end] == null) {
+            vertices.push({
+                id: end,
+                label: "person " + (end)
+            }, {
+                id: starting_node,
+                label: "person " + (starting_node)
+            })
+            edges.push({
+                from: starting_node,
+                to: end,
+                color: 'orange',
+                label: String(Infinity)
+            })
+        } else {
+            while (end != starting_node && (end in parents)) {
+                edges.push({
+                    from: parents[end],
+                    to: end,
+                    color: 'orange',
+                    label: String(costs[end])
+                })
+                vertices.push({
+                    id: end,
+                    label: "person " + (end)
+                })
+                end = parents[end]
+            }
+            vertices.push({
+                id: end,
+                label: "person " + (end)
+            })
+        }
+        const data = {
+            nodes: vertices,
+            edges: edges
+        }
+        return data;
+    }
     genNew.onclick = function () {
         //Creating and setting date to network
         let data = createData();
         network.setData(data);
     }
-    solveNew.onclick = function () {
-        let data = solveData();
+    out1.onclick = function () {
+        let data = output1();
+        network2.setData(data);
+    }
+    out2.onclick = function () {
+
+        let data = output2();
+        network2.setData(data);
+    }
+    out3.onclick = function () {
+        let data = output3();
         network2.setData(data);
     }
 
