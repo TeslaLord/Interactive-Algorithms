@@ -26,7 +26,7 @@ onload = function () {
                 face: 'FontAwesome',
                 code: '\uf015',
                 size: 40,
-                color: "#991133"
+                color: "black"
             }
         }
     }
@@ -49,11 +49,36 @@ onload = function () {
         var splitconn = conn.split("\n")
 
         let vertices = []
-        for (let i = 0; i < V; i++) {
-            vertices.push({
-                id: i + 1,
-                label: "person " + (i + 1)
-            })
+        for (let i = 1; i < V + 1; i++) {
+            if (i != starting_node && i != ending_node) {
+                vertices.push({
+                    id: i,
+                    label: "person " + (i),
+
+                })
+            } else if (i == starting_node) {
+                vertices.push({
+                    id: i,
+                    label: "person " + (i),
+                    icon: {
+                        face: 'FontAwesome',
+                        code: '\uf015',
+                        size: 40,
+                        color: "green"
+                    }
+                })
+            } else if (i == ending_node) {
+                vertices.push({
+                    id: i,
+                    label: "person " + (i),
+                    icon: {
+                        face: 'FontAwesome',
+                        code: '\uf015',
+                        size: 40,
+                        color: "red"
+                    }
+                })
+            }
         }
 
         let edges = []
@@ -63,7 +88,7 @@ onload = function () {
             edges.push({
                 from: splitvalues[0],
                 to: splitvalues[1],
-                color: 'orange',
+                color: 'green',
                 label: String(splitvalues[2])
             })
         }
@@ -101,10 +126,33 @@ onload = function () {
         graph = {}
         for (let i = 1; i <= V; i++) {
             graph[i] = {}
-            vertices.push({
-                id: i,
-                label: "person " + (i)
-            })
+            if (i != starting_node && i != ending_node)
+                vertices.push({
+                    id: i,
+                    label: "person " + (i),
+                })
+            if (i == starting_node)
+                vertices.push({
+                    id: i,
+                    label: "person " + (i),
+                    icon: {
+                        face: 'FontAwesome',
+                        code: '\uf015',
+                        size: 40,
+                        color: "red"
+                    }
+                })
+            if (i == ending_node)
+                vertices.push({
+                    id: i,
+                    label: "person " + (i),
+                    icon: {
+                        face: 'FontAwesome',
+                        code: '\uf015',
+                        size: 40,
+                        color: "green"
+                    }
+                })
         }
         V = Math.round(V) + 1
         let l = [...Array(V).keys()]; //Doubt
@@ -172,7 +220,7 @@ onload = function () {
             edges.push({
                 from: parents[i],
                 to: i,
-                color: 'orange',
+                color: 'green',
                 label: String(costs[i])
             })
         }
@@ -183,7 +231,7 @@ onload = function () {
             edges.push({
                 from: starting_node,
                 to: temp[i - 1],
-                color: 'orange',
+                color: 'green',
                 label: String(Infinity)
             })
 
@@ -201,7 +249,7 @@ onload = function () {
             edges.push({
                 from: starting_node,
                 to: n,
-                color: 'orange',
+                color: 'green',
                 label: String(costs[n])
             })
         }
@@ -220,15 +268,17 @@ onload = function () {
         if (parents[end] == null) {
             vertices.push({
                 id: end,
-                label: "person " + (end)
+                label: "person " + (end),
+
             }, {
                 id: starting_node,
-                label: "person " + (starting_node)
+                label: "person " + (starting_node),
+
             })
             edges.push({
                 from: starting_node,
                 to: end,
-                color: 'orange',
+                color: 'green',
                 label: String(Infinity)
             })
         } else {
@@ -236,7 +286,7 @@ onload = function () {
                 edges.push({
                     from: parents[end],
                     to: end,
-                    color: 'orange',
+                    color: 'green',
                     label: String(costs[end])
                 })
                 vertices.push({
