@@ -59,7 +59,7 @@ onload = function () {
         let edges = []
         i = ""
         for (i in splitconn) {
-            let splitvalues = splitconn[i].split("-")
+            let splitvalues = splitconn[i].split(",")
             edges.push({
                 from: splitvalues[0],
                 to: splitvalues[1],
@@ -116,7 +116,7 @@ onload = function () {
         processed = []
         let i = ""
         for (i in splitconn) {
-            let splitvalues = splitconn[i].split("-")
+            let splitvalues = splitconn[i].split(",")
             let start = parseInt(splitvalues[0])
             let end = parseInt(splitvalues[1])
 
