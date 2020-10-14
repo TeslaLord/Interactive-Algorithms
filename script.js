@@ -64,7 +64,7 @@ onload = function () {
                         face: 'FontAwesome',
                         code: '\uf015',
                         size: 40,
-                        color: "green"
+                        color: "red"
                     }
                 })
             } else if (i == ending_node) {
@@ -75,7 +75,7 @@ onload = function () {
                         face: 'FontAwesome',
                         code: '\uf015',
                         size: 40,
-                        color: "red"
+                        color: "green"
                     }
                 })
             }
