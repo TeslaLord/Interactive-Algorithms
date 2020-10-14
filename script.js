@@ -155,9 +155,8 @@ onload = function () {
                 })
         }
         V = Math.round(V) + 1
-        let l = [...Array(V).keys()]; //Doubt
-        // let l = [1, 2, 3, 4]
-        delete l[0]
+        let l = [...Array(V).keys()];
+        l.splice(0, 1)
         let neighbor_start = []
         costs = {}
         parents = {}
@@ -260,46 +259,91 @@ onload = function () {
         return data;
     }
 
+    // function output3() {
+    //     solveData()
+    //     let end = ending_node
+    //     let vertices = []
+    //     let edges = []
+    //     if (parents[end] == null) {
+    //         vertices.push({
+    //             id: end,
+    //             label: "person " + (end),
+
+    //         }, {
+    //             id: starting_node,
+    //             label: "person " + (starting_node),
+
+    //         })
+    //         edges.push({
+    //             from: starting_node,
+    //             to: end,
+    //             color: 'green',
+    //             label: String(Infinity)
+    //         })
+    //     } else {
+    //         while (end != starting_node && (end in parents)) {
+    //             edges.push({
+    //                 from: parents[end],
+    //                 to: end,
+    //                 color: 'green',
+    //                 label: String(costs[end])
+    //             })
+    //             vertices.push({
+    //                 id: end,
+    //                 label: "person " + (end)
+    //             })
+    //             end = parents[end]
+    //         }
+    //         vertices.push({
+    //             id: end,
+    //             label: "person " + (end)
+    //         })
+    //     }
+    //     const data = {
+    //         nodes: vertices,
+    //         edges: edges
+    //     }
+    //     return data;
+    // }
+
+
+
     function output3() {
         solveData()
-        let end = ending_node
-        let vertices = []
-        let edges = []
-        if (parents[end] == null) {
-            vertices.push({
-                id: end,
-                label: "person " + (end),
+        end = ending_node
 
-            }, {
-                id: starting_node,
-                label: "person " + (starting_node),
+        let remaining = []
 
-            })
-            edges.push({
-                from: starting_node,
-                to: end,
-                color: 'green',
-                label: String(Infinity)
-            })
-        } else {
-            while (end != starting_node && (end in parents)) {
+        for (var n in costs) {
+            if (end != starting_node && (end in parents)) {
                 edges.push({
                     from: parents[end],
                     to: end,
                     color: 'green',
-                    label: String(costs[end])
+                    label: String(graph[parents[end]][end])
                 })
-                vertices.push({
-                    id: end,
-                    label: "person " + (end)
-                })
+                remaining.push(end)
                 end = parents[end]
+                prev = costs[end]
             }
-            vertices.push({
-                id: end,
-                label: "person " + (end)
-            })
         }
+        remaining.push(end)
+        console.log(remaining)
+        let l = [...Array(V).keys()];
+        l.splice(0, 1)
+        const l_set = [...new Set(l)];
+        const remaining_set = [...new Set(remaining)];
+        let remaining_set_now = new Set([...l_set].filter(x => !remaining_set.includes(x)));
+
+        remaining_set_now = Array.from(remaining_set_now);
+        console.log(remaining_set_now)
+        let counter = 0
+        for (let i in remaining_set_now) {
+            vertices.splice(remaining_set_now[i] - counter - 1, 1)
+            console.log(remaining_set_now[i] - counter - 1)
+            counter += 1
+        }
+
         const data = {
             nodes: vertices,
             edges: edges
