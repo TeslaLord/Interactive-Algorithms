@@ -17,13 +17,22 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light text-light bg-dark" style="font-size:20px;">
-        <h2>Dijkstra Algorithm </h2>
-        <div>
+    <nav class="navbar navbar-light text-light" style="background-color: rgb(63, 62, 62);font-size:20px;">
+
+
+        <div class="box float-right">
+            <select id="items">
+
+                <option value="dj" id="dijkstra">Dijkstra Algorithm</option>
+
+                <option value="bell" id="bellman">Bellman-Ford Algorithm</option>
+            </select>
+        </div>
+        <div class="input-bar">
             Enter the number of nodes: <input type="number" id="nodenum" value="nodevalue"
-                style="width: 100px !important;">
-            Starting node: <input type="number" id="startingnode" value="startnode" style="width: 100px !important;">
-            ending node: <input type="number" id="endingnode" value="endnode" style="width: 100px !important;">
+                style="width: 80px !important;">
+            Starting node: <input type="number" id="startingnode" value="startnode" style="width: 80px !important;">
+            ending node: <input type="number" id="endingnode" value="endnode" style="width: 80px !important;">
         </div>
     </nav>
     <br>
