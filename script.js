@@ -155,8 +155,10 @@ onload = function () {
                 })
         }
         V = Math.round(V) + 1
-        let l = [...Array(V).keys()];
-        l.splice(0, 1)
+        let l = [];
+        for (let i = 1; i <= V; i++) {
+            l.push(i);
+        }
         let neighbor_start = []
         costs = {}
         parents = {}
@@ -209,8 +211,102 @@ onload = function () {
         }
     }
 
+    function solveData2() {
+        vertices = []
+        edges = []
+        var x = document.getElementById("frm1");
+        V = parseInt(document.getElementById("nodenum").value)
+        let conn = x.elements[0].value;
+        var splitconn = conn.split("\n")
+        graph = {}
+        for (let i = 1; i <= V; i++) {
+            graph[i] = {}
+            if (i != starting_node && i != ending_node)
+                vertices.push({
+                    id: i,
+                    label: "person " + (i),
+                })
+            if (i == starting_node)
+                vertices.push({
+                    id: i,
+                    label: "person " + (i),
+                    icon: {
+                        face: 'FontAwesome',
+                        code: '\uf015',
+                        size: 40,
+                        color: "red"
+                    }
+                })
+            if (i == ending_node)
+                vertices.push({
+                    id: i,
+                    label: "person " + (i),
+                    icon: {
+                        face: 'FontAwesome',
+                        code: '\uf015',
+                        size: 40,
+                        color: "green"
+                    }
+                })
+        }
+        V = Math.round(V) + 1
+        // let l = [...Array(V).keys()];
+        // l.splice(0, 1)
+
+        let l = [];
+
+        for (let i = 1; i <= V; i++) {
+            l.push(i);
+        }
+        let neighbor_start = []
+        costs = {}
+        parents = {}
+        processed = []
+        let i = ""
+        for (i in splitconn) {
+            let splitvalues = splitconn[i].split(",")
+            let start = parseInt(splitvalues[0])
+            let end = parseInt(splitvalues[1])
+
+            let cost_edge = parseInt(splitvalues[2])
+            if (!Number.isNaN(start)) {
+                graph[start][end] = parseInt(cost_edge)
+                if (start == starting_node) {
+                    neighbor_start.push(end)
+                    costs[end] = parseInt(cost_edge)
+                    parents[end] = starting_node
+                }
+            }
+        }
+
+        costs[starting_node] = 0
+        for (let i in l) {
+            if (i != starting_node) {
+                costs[i] = Infinity
+                parents[i] = null;
+            }
+        }
+        console.log(costs)
+        for (let i = 0; i < V; i++) {
+            for ([k, v] of Object.entries(graph)) {
+                k = parseInt(k)
+                k1 = parseInt(k)
+                for ([k1, v1] of Object.entries(graph[k])) {
+                    if (costs[k1] > costs[k] + graph[k][k1]) {
+                        costs[k1] = costs[k] + graph[k][k1]
+                        parents[k1] = k
+                        console.log(k, k1, costs)
+                    }
+                }
+            }
+        }
+        delete costs[starting_node]
+        console.log(costs)
+
+    }
+
     function output1() {
-        solveData()
+        decider()
         let temp = []
         for (let i = 1; i < V + 1; i++) {
             if (parents[i] == null && i != starting_node) {
@@ -243,7 +339,7 @@ onload = function () {
     }
 
     function output2() {
-        solveData()
+        decider()
         for (var n in costs) {
             edges.push({
                 from: starting_node,
@@ -307,10 +403,20 @@ onload = function () {
     //     return data;
     // }
 
+    function decider() {
+        let e = document.getElementById("items");
+        let algo_val = e.options[e.selectedIndex].value;
 
+        if (algo_val == "dj") {
+            solveData()
+
+        } else if (algo_val == "bell") {
+            solveData2()
+        }
+    }
 
     function output3() {
-        solveData()
+        decider()
         end = ending_node
         flag = 0
         let remaining = []
@@ -319,7 +425,7 @@ onload = function () {
             if (end != starting_node && (end in parents)) {
                 // if (typeof graph[parents[end]][end] === 'undefined') {
                 // if (flag == 0) {
-                //     console.log("I am here boy")
+
                 //     edges.push({
                 //         from: starting_node,
                 //         to: end,
@@ -362,7 +468,7 @@ onload = function () {
                         label: String(graph[parents[end]][end])
                     })
                 } catch (err) {
-                    console.log("I am here boy")
+
                     edges.push({
                         from: starting_node,
                         to: end,
@@ -402,7 +508,7 @@ onload = function () {
             }
         }
         remaining.push(end)
-        console.log(remaining)
+
         let l = [...Array(V).keys()];
         l.splice(0, 1)
         const l_set = [...new Set(l)];
@@ -410,11 +516,11 @@ onload = function () {
         let remaining_set_now = new Set([...l_set].filter(x => !remaining_set.includes(x)));
 
         remaining_set_now = Array.from(remaining_set_now);
-        console.log(remaining_set_now)
+
         let counter = 0
         for (let i in remaining_set_now) {
             vertices.splice(remaining_set_now[i] - counter - 1, 1)
-            console.log(remaining_set_now[i] - counter - 1)
+
             counter += 1
         }
 
