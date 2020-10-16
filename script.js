@@ -290,7 +290,8 @@ onload = function () {
     //             })
     //             vertices.push({
     //                 id: end,
-    //                 label: "person " + (end)
+    //                 label: "person " + (end),
+
     //             })
     //             end = parents[end]
     //         }
@@ -311,17 +312,90 @@ onload = function () {
     function output3() {
         solveData()
         end = ending_node
-
+        flag = 0
         let remaining = []
 
         for (var n in costs) {
             if (end != starting_node && (end in parents)) {
-                edges.push({
-                    from: parents[end],
-                    to: end,
-                    color: 'green',
-                    label: String(graph[parents[end]][end])
-                })
+                // if (typeof graph[parents[end]][end] === 'undefined') {
+                // if (flag == 0) {
+                //     console.log("I am here boy")
+                //     edges.push({
+                //         from: starting_node,
+                //         to: end,
+                //         label: String(Infinity)
+                //     })
+
+                //     vertices = []
+                //     vertices.push({
+                //         id: starting_node,
+                //         label: "person " + (starting_node),
+                //         icon: {
+                //             face: 'FontAwesome',
+                //             code: '\uf015',
+                //             size: 40,
+                //             color: "red"
+                //         }
+                //     })
+                //     vertices.push({
+                //         id: end,
+                //         label: "person " + (end),
+                //         icon: {
+                //             face: 'FontAwesome',
+                //             code: '\uf015',
+                //             size: 40,
+                //             color: "green"
+                //         }
+                //     })
+                //     const data = {
+                //         nodes: vertices,
+                //         edges: edges
+                //     }
+                //     return data;
+                // }
+                flag = 1
+                try {
+                    edges.push({
+                        from: parents[end],
+                        to: end,
+                        color: 'green',
+                        label: String(graph[parents[end]][end])
+                    })
+                } catch (err) {
+                    console.log("I am here boy")
+                    edges.push({
+                        from: starting_node,
+                        to: end,
+                        label: String(Infinity)
+                    })
+
+                    vertices = []
+                    vertices.push({
+                        id: starting_node,
+                        label: "person " + (starting_node),
+                        icon: {
+                            face: 'FontAwesome',
+                            code: '\uf015',
+                            size: 40,
+                            color: "red"
+                        }
+                    })
+                    vertices.push({
+                        id: end,
+                        label: "person " + (end),
+                        icon: {
+                            face: 'FontAwesome',
+                            code: '\uf015',
+                            size: 40,
+                            color: "green"
+                        }
+                    })
+                    const data = {
+                        nodes: vertices,
+                        edges: edges
+                    }
+                    return data;
+                }
                 remaining.push(end)
                 end = parents[end]
                 prev = costs[end]
