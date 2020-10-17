@@ -19,20 +19,37 @@
 <body>
     <nav class="navbar navbar-light text-light" style="background-color: rgb(63, 62, 62);font-size:20px;">
 
+        <!-- <div class="row">
+            <div class="box float-right">
+                <select id="items">
+                    <option value="dj" id="dijkstra">Dijkstra Algorithm</option>
+                    <option value="bell" id="bellman">Bellman-Ford Algorithm</option>
+                </select>
+            </div>
 
-        <div class="box float-right">
-            <select id="items">
-
-                <option value="dj" id="dijkstra">Dijkstra Algorithm</option>
-
-                <option value="bell" id="bellman">Bellman-Ford Algorithm</option>
-            </select>
-        </div>
-        <div class="input-bar">
-            Enter the number of nodes: <input type="number" id="nodenum" value="nodevalue"
-                style="width: 80px !important;">
-            Starting node: <input type="number" id="startingnode" value="startnode" style="width: 80px !important;">
-            ending node: <input type="number" id="endingnode" value="endnode" style="width: 80px !important;">
+            <div class="input-bar col-12 offset-5">
+                Enter the number of nodes: <input type="number" id="nodenum" value="nodevalue"
+                    style="width: 80px !important;">
+                Starting node: <input type="number" id="startingnode" value="startnode" style="width: 80px !important;">
+                ending node: <input type="number" id="endingnode" value="endnode" style="width: 80px !important;">
+            </div>
+        </div> -->
+        <div class="row text-center">
+            <div class="col-md-3 box col-sm-12">
+                <select id="items" style="height:70% !important; margin-top:6%;width:100% !important;"></i>
+                    <option value="dj" id="dijkstra">Dijkstra Algorithm
+                    </option>
+                    <option value="bell" id="bellman">Bellman-Ford Algorithm</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                Number of nodes: <input type="number" id="nodenum" value="nodevalue" style="width: 80% !important;">
+            </div>
+            <div class="col-md-3 col-sm-12">
+                Starting node: <input type="number" id="startingnode" value="startnode" style="width: 80% !important;">
+            </div>
+            <div class="col-md-3 col-sm-12">ending node: <input type="number" id="endingnode" value="endnode"
+                    style="width: 80% !important;"></div>
         </div>
     </nav>
     <br>
