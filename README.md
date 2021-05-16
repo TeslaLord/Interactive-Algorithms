@@ -16,9 +16,9 @@ Bellman-ford can work efficiently on negative edges, unless there are negative e
 
 ## Sample Input
 
-Source node: 1
-Destination node: 5
-Weights, Copy and paste this: 
+<p>Source node: 1</p>
+<p>Destination node: 5</p>
+<p>Weights, Copy and paste this: </p>
 <p>1,2,10</p>
 <p>2,3,5</p>
 <p>3,4,9</p>
